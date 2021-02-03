@@ -76,13 +76,13 @@ end
 
 lemma mul_one (m : mynat) : m * 1 = m := begin[nat_num_game]
   induction m,
-  rwa [zero_mul],
+  rwa zero_mul,
   rwa [one_eq_succ_zero, mul_succ, mul_zero, zero_add],
 end
 
 lemma one_mul (m : mynat) : 1 * m = m := begin[nat_num_game]
   induction m,
-  rwa [mul_zero],
+  rwa mul_zero,
   rwa [mul_succ, succ_eq_add_one, m_ih],
 end
 
@@ -134,7 +134,7 @@ end
 --------------------
 
 lemma zero_pow_zero : (0 : mynat) ^ (0 : mynat) = 1 := begin[nat_num_game]
-  rwa [pow_zero],
+  rwa pow_zero,
 end
 
 lemma zero_pow_succ (m : mynat) : (0 : mynat) ^ (succ m) = 0 := begin[nat_num_game]
@@ -147,7 +147,7 @@ end
 
 lemma one_pow (m : mynat) : (1 : mynat) ^ m = 1 := begin[nat_num_game]
   induction m,
-  rwa [pow_zero],
+  rwa pow_zero,
   rwa [pow_succ, mul_one],
 end
 
@@ -359,7 +359,7 @@ end
 
 theorem succ_eq_succ_of_eq {a b : mynat} : a = b → succ(a) = succ(b) := begin[nat_num_game]
   intro h,
-  rwa [h],
+  rwa h,
 end
 
 theorem succ_eq_succ_iff (a b : mynat) : succ a = succ b ↔ a = b := begin[nat_num_game]
@@ -371,7 +371,7 @@ end
 theorem add_right_cancel (a t b : mynat) : a + t = b + t → a = b := begin[nat_num_game]
   intro h,
   induction t,
-  rwa [add_zero] at h, {
+  rwa add_zero at h, {
     apply t_ih,
     rwa [add_succ, add_succ] at h,
     cc
@@ -387,7 +387,7 @@ theorem add_right_cancel_iff (t a b : mynat) :  a + t = b + t ↔ a = b := begin
   split,
   apply add_right_cancel, {
     intro h,
-    rwa [h],
+    rwa h,
   }
 end
 
