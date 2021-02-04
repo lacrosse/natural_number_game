@@ -578,4 +578,10 @@ lemma le_zero (a : mynat) (h : a ≤ 0) : a = 0 := begin[nat_num_game]
   }
 end
 
+lemma succ_le_succ (a b : mynat) (h : a ≤ b) : succ a ≤ succ b := begin[nat_num_game]
+  cases h,
+  use h_w,
+  rwa [succ_add, h_h],
+end
+
 end mynat
