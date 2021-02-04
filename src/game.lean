@@ -4,6 +4,7 @@ import mynat.definition
 import mynat.add
 import mynat.mul
 import mynat.pow
+import mynat.le
 namespace mynat
 def two_eq_succ_one : (2 : mynat) = succ 1 := rfl
 
@@ -510,6 +511,60 @@ theorem mul_left_cancel (a b c : mynat) (ha : a ≠ 0) : a * b = a * c → b = c
       rwa hyp,
     }
   }
+end
+
+--------------------------
+-- World 10: Inequality --
+--------------------------
+
+lemma one_add_le_self (x : mynat) : x ≤ 1 + x := begin[nat_num_game]
+  use 1,
+  apply add_comm,
+end
+
+lemma le_refl (x : mynat) : x ≤ x := begin[nat_num_game]
+  use 0,
+  refl,
+end
+
+attribute [refl] mynat.le_refl
+
+theorem le_succ (a b : mynat) : a ≤ b → a ≤ (succ b) := begin[nat_num_game]
+  intro h,
+  cases h,
+  rw h_h,
+  use succ h_w,
+  refl,
+end
+
+lemma zero_le (a : mynat) : 0 ≤ a := begin[nat_num_game]
+  induction a,
+  refl, {
+    cases a_ih,
+    rw a_ih_h,
+    use succ a_ih_w,
+    refl
+  }
+end
+
+theorem le_trans (a b c : mynat) (hab : a ≤ b) (hbc : b ≤ c) : a ≤ c := begin[nat_num_game]
+  cases hab,
+  cases hbc,
+  rw hab_h at hbc_h,
+  use hab_w + hbc_w,
+  rw add_assoc at hbc_h,
+  apply hbc_h,
+end
+
+theorem le_antisymm (a b : mynat) (hab : a ≤ b) (hba : b ≤ a) : a = b := begin[nat_num_game]
+  cases hab,
+  cases hba,
+  rw [hab_h, add_assoc] at hba_h,
+  symmetry at hba_h,
+  have w_sum_eq_zero_h := eq_zero_of_add_right_eq_self hba_h,
+  have hab_w_eq_zero := add_right_eq_zero w_sum_eq_zero_h,
+  rw [hab_w_eq_zero, add_zero] at hab_h,
+  rwa [hab_h],
 end
 
 end mynat
