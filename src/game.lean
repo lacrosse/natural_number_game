@@ -567,4 +567,15 @@ theorem le_antisymm (a b : mynat) (hab : a ≤ b) (hba : b ≤ a) : a = b := beg
   rwa [hab_h],
 end
 
+lemma le_zero (a : mynat) (h : a ≤ 0) : a = 0 := begin[nat_num_game]
+  induction a,
+  refl, {
+    exfalso,
+    cases h,
+    symmetry at h_h,
+    apply succ_ne_zero,
+    exact add_right_eq_zero h_h,
+  }
+end
+
 end mynat
