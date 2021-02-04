@@ -584,4 +584,28 @@ lemma succ_le_succ (a b : mynat) (h : a ≤ b) : succ a ≤ succ b := begin[nat_
   rwa [succ_add, h_h],
 end
 
+theorem le_total (a b : mynat) : a ≤ b ∨ b ≤ a := begin[nat_num_game]
+  induction b generalizing a, {
+    right,
+    apply zero_le,
+  }, {
+    cases a, {
+      left,
+      apply zero_le,
+    }, {
+      cases b_ih a, {
+        left,
+        apply succ_le_succ,
+        exact h
+      }, {
+        right,
+        apply succ_le_succ,
+        exact h
+      }
+    }
+  }
+end
+
+instance : linear_order mynat := by structure_helper
+
 end mynat
