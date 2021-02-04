@@ -623,4 +623,12 @@ theorem add_le_add_right {a b : mynat} : a ≤ b → ∀ t, (a + t) ≤ (b + t) 
   }
 end
 
+theorem le_of_succ_le_succ (a b : mynat) : succ a ≤ succ b → a ≤ b := begin[nat_num_game]
+  intro h,
+  cases h,
+  use h_w,
+  rw [succ_add, succ_eq_succ_iff] at h_h,
+  apply h_h,
+end
+
 end mynat
