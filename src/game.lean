@@ -613,4 +613,14 @@ lemma le_succ_self (a : mynat) : a ≤ succ a := begin[nat_num_game]
   apply le_refl,
 end
 
+theorem add_le_add_right {a b : mynat} : a ≤ b → ∀ t, (a + t) ≤ (b + t) := begin[nat_num_game]
+  intros h t,
+  induction t,
+  rwa [add_zero], {
+    rwa [add_succ, add_succ],
+    apply succ_le_succ,
+    exact t_ih,
+  }
+end
+
 end mynat
