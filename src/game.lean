@@ -608,4 +608,9 @@ end
 
 instance : linear_order mynat := by structure_helper
 
+lemma le_succ_self (a : mynat) : a ≤ succ a := begin[nat_num_game]
+  apply le_succ,
+  apply le_refl,
+end
+
 end mynat
