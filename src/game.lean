@@ -645,4 +645,14 @@ theorem not_succ_le_self (a : mynat) : ¬ (succ a ≤ a) := begin[nat_num_game]
   }
 end
 
+theorem add_le_add_left {a b : mynat} (h : a ≤ b) (t : mynat) : t + a ≤ t + b := begin[nat_num_game]
+  induction t, {
+    rwa [zero_add, zero_add]
+  }, {
+    rw [succ_add, succ_add],
+    apply succ_le_succ,
+    apply t_ih
+  }
+end
+
 end mynat
