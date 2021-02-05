@@ -631,4 +631,18 @@ theorem le_of_succ_le_succ (a b : mynat) : succ a ≤ succ b → a ≤ b := begi
   apply h_h,
 end
 
+theorem not_succ_le_self (a : mynat) : ¬ (succ a ≤ a) := begin[nat_num_game]
+  intro h,
+  induction a, {
+    cases h,
+    rw succ_add at h_h,
+    apply zero_ne_succ,
+    apply h_h,
+  }, {
+    apply a_ih,
+    apply le_of_succ_le_succ,
+    apply h,
+  }
+end
+
 end mynat
