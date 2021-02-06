@@ -142,4 +142,21 @@ theorem add_le_add_left {a b : mynat} (h : a ≤ b) (t : mynat) : t + a ≤ t + 
   }
 end
 
+lemma lt_aux_one (a b : mynat) : a ≤ b ∧ ¬ (b ≤ a) → succ a ≤ b := begin[nat_num_game]
+  intro h,
+  cases h,
+  cases h_left,
+  cases h_left_w, {
+    by_contra,
+    rw add_zero at h_left_h,
+    apply h_right,
+    rw h_left_h,
+    apply le_refl,
+  }, {
+    rw h_left_h,
+    use h_left_w,
+    rwa [add_succ, succ_add],
+  }
+end
+
 end mynat
