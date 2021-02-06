@@ -176,4 +176,13 @@ lemma lt_aux_two (a b : mynat) : succ a ≤ b → a ≤ b ∧ ¬ (b ≤ a) := be
   }
 end
 
+definition lt (a b : mynat) := a ≤ b ∧ ¬ (b ≤ a)
+instance : has_lt mynat := ⟨lt⟩
+
+lemma lt_iff_succ_le (a b : mynat) : a < b ↔ succ a ≤ b := begin[nat_num_game]
+  split,
+  intro h, exact lt_aux_one _ _ h,
+  intro h, exact lt_aux_two _ _ h,
+end
+
 end mynat
