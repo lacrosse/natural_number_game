@@ -147,11 +147,10 @@ lemma lt_aux_one (a b : mynat) : a ≤ b ∧ ¬ (b ≤ a) → succ a ≤ b := be
   cases h,
   cases h_left,
   cases h_left_w, {
-    by_contra,
-    rw add_zero at h_left_h,
+    exfalso,
     apply h_right,
-    rw h_left_h,
-    apply le_refl,
+    rwa h_left_h,
+    refl,
   }, {
     rw h_left_h,
     use h_left_w,
