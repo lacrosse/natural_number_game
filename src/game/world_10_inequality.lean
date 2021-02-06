@@ -158,4 +158,22 @@ lemma lt_aux_one (a b : mynat) : a ≤ b ∧ ¬ (b ≤ a) → succ a ≤ b := be
   }
 end
 
+lemma lt_aux_two (a b : mynat) : succ a ≤ b → a ≤ b ∧ ¬ (b ≤ a) := begin[nat_num_game]
+  intro h,
+  split, {
+    cases h,
+    use h_w + 1,
+    rwa [h_h, succ_eq_add_one, add_assoc, add_comm(h_w)],
+  }, {
+    intro le_h,
+    apply not_succ_le_self b,
+    cases le_h,
+    rw le_h_h at h,
+    cases h,
+    use le_h_w + h_w,
+    rw succ_add,
+    rwa [succ_add, add_assoc] at h_h,
+  }
+end
+
 end mynat
